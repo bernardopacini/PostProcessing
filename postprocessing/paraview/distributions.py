@@ -20,7 +20,7 @@ def generate_force_distribution_cmd():
     command line with arguments.
     """
     # Parse arguments
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument(
         "-i",
         "--input_file",
@@ -56,7 +56,7 @@ def generate_force_distribution_cmd():
         help="Span direction. String in (X+, X-, Y+, Y-, Z+, Z-) or list of floats specifying vector. Default is X+.",
         type=str,
         nargs="+",
-        default="X+",
+        default="Z+",
     )
     parser.add_argument(
         "-f",
@@ -69,7 +69,7 @@ def generate_force_distribution_cmd():
     parser.add_argument(
         "-xs",
         "--x_start",
-        help="Coordinate to start slices from. Default is [0, 0, 0]",
+        help="Coordinate to start slices from. Default is [0, 0, 0].",
         type=str,
         nargs="+",
         default=[0, 0, 0],
@@ -77,7 +77,7 @@ def generate_force_distribution_cmd():
     parser.add_argument(
         "-xe",
         "--x_end",
-        help="Coordinate to end slices a. Default is [0, 0, 1]",
+        help="Coordinate to end slices a. Default is [0, 0, 1].",
         type=str,
         nargs="+",
         default=[0, 0, 1],
@@ -99,8 +99,8 @@ def generate_force_distribution(
     output_directory="./",
     name="force_distribution",
     patches="group/wall",
-    span_direction="X",
-    force_direction="Y",
+    span_direction="Z+",
+    force_direction="Y+",
     x_start=[0, 0, 0],
     x_end=[0, 0, 1],
     n_span=100,
@@ -124,10 +124,10 @@ def generate_force_distribution(
         is "group/wall".
     span_direction : str or list
         Vector direction for span direction either as a string (eg. X) or list
-        [1 0 0]. Should be of magnitude 1. Default is "X".
+        (eg. [0 0 1]). Should be of magnitude 1. Default is "Z+".
     force_direction : str or list
         Vector direction for force direction either as a string (eg. X) or list
-        [0 1 0]. Should be of magnitude 1. Default is "Y".
+        (eg. [0 1 0]). Should be of magnitude 1. Default is "Y+".
     x_start : list
         Coordinates to start slices from. Default is [0, 0, 0].
     x_end : list
