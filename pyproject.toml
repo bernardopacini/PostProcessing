@@ -41,7 +41,8 @@ docs = [
 ]
 
 [project.scripts]
-pv_generate_distributions = "postprocessing.paraview.distributions:generate_force_distribution_cmd"
+pv_generate_force_distribution = "postprocessing.paraview.distributions:generate_force_distribution_cmd"
+pv_generate_geometry_distribution = "postprocessing.paraview.distributions:generate_geometry_distribution_cmd"
 
 [tool.hatch.version]
 path = "postprocessing/__init__.py"
