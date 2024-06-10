@@ -488,9 +488,9 @@ def compute_section_properties(coords2D):
             max_dist = dist
             i_max_dist = k
 
-    x_le_down = coords2D[i_max_dist - 1, :]
-    x_le = coords2D[i_max_dist, :]
-    x_le_up = coords2D[i_max_dist + 1, :]
+    x_le_pt_down = coords2D[i_max_dist - 1, :]
+    x_le_pt = coords2D[i_max_dist, :]
+    x_le_pt_up = coords2D[i_max_dist + 1, :]
 
     # Compute center and radius of LE circle
     def circle_from_3_points(x1, x2, x3):
@@ -513,7 +513,7 @@ def compute_section_properties(coords2D):
         c = np.array([c.real, c.imag])
         return c, r
 
-    c, r = circle_from_3_points(x_le_down, x_le, x_le_up)
+    c, r = circle_from_3_points(x_le_pt_down, x_le_pt, x_le_pt_up)
 
     # Find true LE
     def minFunc(theta, c, r, xTE):
@@ -521,13 +521,13 @@ def compute_section_properties(coords2D):
         return -np.linalg.norm(x - x_te)
 
     res = scipy.optimize.minimize(minFunc, x0=[np.pi / 2], args=(c, r, x_te), bounds=[(0, 2 * np.pi)], tol=1e-12)
-    x_le_comp = np.array([r * np.cos(res.x[0]) + c[0], r * np.sin(res.x[0]) + c[1]])
+    x_le = np.array([r * np.cos(res.x[0]) + c[0], r * np.sin(res.x[0]) + c[1]])
 
     # Compute chord
-    chord = np.linalg.norm(x_te - x_le_comp)
+    chord = np.linalg.norm(x_te - x_le)
 
     # Compute twist
-    twist = np.rad2deg(np.arctan2((x_le_comp[1] - x_te[1]), -(x_le_comp[0] - x_te[0])))
+    twist = np.rad2deg(np.arctan2((x_le[1] - x_te[1]), -(x_le[0] - x_te[0])))
 
     # Rotate airfoil
     R = np.array(
@@ -536,7 +536,7 @@ def compute_section_properties(coords2D):
             [np.sin(np.deg2rad(twist)), np.cos(np.deg2rad(twist))],
         ]
     )
-    coords_disp = (R @ (coords2D[:, :] - x_le_comp).T).T
+    coords_disp = (R @ (coords2D[:, :] - x_le).T).T
 
     # Isolate coordinates
     coords_top = np.flip(coords_disp[0:i_max_dist, :], axis=0)
