@@ -435,7 +435,8 @@ def generate_geometry_distribution(
             paraview.Delete(slice1)
 
             # Rotate points to X-Y plane
-            coords2D = coords[:, :2]
+            orientation = np.array([drag_direction, lift_direction, np.cross(drag_direction, lift_direction)])
+            coords2D = (orientation @ coords.T).T[:, :2]
 
             # Sort
             coords2D, arclen, _ = pv_utils.sort_airfoil(coords2D, arclen)
@@ -444,7 +445,7 @@ def generate_geometry_distribution(
             chord[j], twist[j], thickness[j] = compute_section_properties(coords2D)
 
         # Write CSV File
-        fields = ["X", "Y", "Z", "Twist", "Chord", "Thick"]
+        fields = ["X", "Y", "Z", "Twist", "Chord", "Thickness"]
         results = np.stack((x[0, :], x[1, :], x[2, :], twist, chord, thickness), axis=1)
         with open(output_directory + name + "_" + str(i) + ".csv", "w") as csvfile:
             # creating a csv writer object
@@ -479,7 +480,7 @@ def compute_section_properties(coords2D):
     te_pts, te_idx = pv_utils.find_te(coords2D)
     x_te = np.mean(te_pts, axis=0)
 
-    # Find coordinate furthest from LE and two neighbors
+    # Find coordinate furthest from trailing edge and two neighbors
     max_dist = 0.0
     i_max_dist = -1
     for k in range(1, np.size(coords2D, 0)):
@@ -492,7 +493,7 @@ def compute_section_properties(coords2D):
     x_le_pt = coords2D[i_max_dist, :]
     x_le_pt_up = coords2D[i_max_dist + 1, :]
 
-    # Compute center and radius of LE circle
+    # Compute center and radius of leading edge circle
     def circle_from_3_points(x1, x2, x3):
         z1 = complex(x1[0], x1[1])
         z2 = complex(x2[0], x2[1])
@@ -515,7 +516,7 @@ def compute_section_properties(coords2D):
 
     c, r = circle_from_3_points(x_le_pt_down, x_le_pt, x_le_pt_up)
 
-    # Find true LE
+    # Find true leading edge
     def minFunc(theta, c, r, xTE):
         x = np.array([r * np.cos(theta[0]) + c[0], r * np.sin(theta[0]) + c[1]])
         return -np.linalg.norm(x - x_te)
