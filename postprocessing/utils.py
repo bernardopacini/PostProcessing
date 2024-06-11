@@ -19,8 +19,29 @@ def check_input_vector(var, name, check_norm=True):
     ndarray
         Vector of length three with the corresponding vector.
     """
-    # Assign vector based on text
-    if len(var) == 1:
+    # Assign vector based on string
+    if isinstance(var, str):
+        if var.upper() == "X+":
+            return np.array([1.0, 0.0, 0.0])
+        elif var.upper() == "X-":
+            return np.array([-1.0, 0.0, 0.0])
+        elif var.upper() == "Y+":
+            return np.array([0.0, 1.0, 0.0])
+        elif var.upper() == "Y-":
+            return np.array([0.0, -1.0, 0.0])
+        elif var.upper() == "Z+":
+            return np.array([0.0, 0.0, 1.0])
+        elif var.upper() == "Z-":
+            return np.array([0.0, 0.0, -1.0])
+        else:
+            raise ValueError(
+                "Provided {} value, {}, not recognized. When specified with a string, options are X+, X-, Y+, Y-, and Z+, Z-.".format(
+                    name, var
+                )
+            )
+
+    # Assign vector based on string list
+    elif len(var) == 1:
         if var[0].upper() == "X+":
             return np.array([1.0, 0.0, 0.0])
         elif var[0].upper() == "X-":

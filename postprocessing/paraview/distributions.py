@@ -57,7 +57,7 @@ def generate_force_distribution_cmd():
         help="Span direction. String in (X+, X-, Y+, Y-, Z+, Z-) or list of floats specifying vector. Default is Z+.",
         type=str,
         nargs="+",
-        default="Z+",
+        default=["Z+"],
     )
     parser.add_argument(
         "-f",
@@ -65,7 +65,7 @@ def generate_force_distribution_cmd():
         help="Force direction. String in (X+, X-, Y+, Y-, Z+, Z-) or list of floats specifying vector. Default is Y+.",
         type=str,
         nargs="+",
-        default="Y+",
+        default=["Y+"],
     )
     parser.add_argument(
         "-xs",
@@ -155,7 +155,7 @@ def generate_force_distribution(
             np.linspace(float(x_start[1]), float(x_end[1]), n_span),
             np.linspace(float(x_start[2]), float(x_end[2]), n_span),
         ]
-    )
+    ).T
 
     # Import case
     if input_file == None:
@@ -186,7 +186,7 @@ def generate_force_distribution(
             slice1 = paraview.Slice(registrationName="Slice1", Input=paraviewfoam)
 
             # Set slice location and normal
-            slice1.SliceType.Origin = [x[0, j], x[1, j], x[2, j]]
+            slice1.SliceType.Origin = [x[j, 0], x[j, 1], x[j, 2]]
             slice1.SliceType.Normal = [span_direction[0], span_direction[1], span_direction[2]]
 
             # Set calculator
@@ -216,7 +216,7 @@ def generate_force_distribution(
 
         # Write CSV file
         fields = ["X", "Y", "Z", "Force"]
-        results = np.stack((x[0, :], x[1, :], x[2, :], force), axis=1)
+        results = np.stack((x[:, 0], x[:, 1], x[:, 2], force), axis=1)
         with open(output_directory + name + "_" + str(i) + ".csv", "w") as csvfile:
             # creating a csv writer object
             csvwriter = csv.writer(csvfile)
@@ -268,7 +268,7 @@ def generate_geometry_distribution_cmd():
         help="Span direction. String in (X+, X-, Y+, Y-, Z+, Z-) or list of floats specifying vector. Default is Z+.",
         type=str,
         nargs="+",
-        default="Z+",
+        default=["Z+"],
     )
     parser.add_argument(
         "-l",
@@ -276,7 +276,7 @@ def generate_geometry_distribution_cmd():
         help="Lift direction. String in (X+, X-, Y+, Y-, Z+, Z-) or list of floats specifying vector. Default is Y+.",
         type=str,
         nargs="+",
-        default="Y+",
+        default=["Y+"],
     )
     parser.add_argument(
         "-d",
@@ -284,7 +284,7 @@ def generate_geometry_distribution_cmd():
         help="Drag direction. String in (X+, X-, Y+, Y-, Z+, Z-) or list of floats specifying vector. Default is X+.",
         type=str,
         nargs="+",
-        default="Y+",
+        default=["X+"],
     )
     parser.add_argument(
         "-xs",
@@ -379,7 +379,7 @@ def generate_geometry_distribution(
             np.linspace(float(x_start[1]), float(x_end[1]), n_span),
             np.linspace(float(x_start[2]), float(x_end[2]), n_span),
         ]
-    )
+    ).T
 
     # Import case
     if input_file == None:
@@ -413,7 +413,7 @@ def generate_geometry_distribution(
             slice1 = paraview.Slice(registrationName="Slice1", Input=paraviewfoam)
 
             # Set slice location and normal
-            slice1.SliceType.Origin = [x[0, j], x[1, j], x[2, j]]
+            slice1.SliceType.Origin = [x[j, 0], x[j, 1], x[j, 2]]
             slice1.SliceType.Normal = [span_direction[0], span_direction[1], span_direction[2]]
 
             # Compute Sorted Line
@@ -435,8 +435,8 @@ def generate_geometry_distribution(
             paraview.Delete(slice1)
 
             # Rotate points to X-Y plane
-            orientation = np.array([drag_direction, lift_direction, np.cross(drag_direction, lift_direction)])
-            coords2D = (orientation @ coords.T).T[:, :2]
+            R = np.array([drag_direction, lift_direction, np.cross(drag_direction, lift_direction)])
+            coords2D = (R @ coords.T).T[:, :2]
 
             # Sort
             coords2D, arclen, _ = pv_utils.sort_airfoil(coords2D, arclen)
@@ -446,7 +446,7 @@ def generate_geometry_distribution(
 
         # Write CSV File
         fields = ["X", "Y", "Z", "Twist", "Chord", "Thickness"]
-        results = np.stack((x[0, :], x[1, :], x[2, :], twist, chord, thickness), axis=1)
+        results = np.stack((x[:, 0], x[:, 1], x[:, 2], twist, chord, thickness), axis=1)
         with open(output_directory + name + "_" + str(i) + ".csv", "w") as csvfile:
             # creating a csv writer object
             csvwriter = csv.writer(csvfile)
@@ -521,7 +521,7 @@ def compute_section_properties(coords2D):
         x = np.array([r * np.cos(theta[0]) + c[0], r * np.sin(theta[0]) + c[1]])
         return -np.linalg.norm(x - x_te)
 
-    res = scipy.optimize.minimize(minFunc, x0=[np.pi / 2], args=(c, r, x_te), bounds=[(0, 2 * np.pi)], tol=1e-12)
+    res = scipy.optimize.minimize(minFunc, x0=[np.pi / 2.0], args=(c, r, x_te), bounds=[(0.0, 2.0 * np.pi)], tol=1e-12)
     x_le = np.array([r * np.cos(res.x[0]) + c[0], r * np.sin(res.x[0]) + c[1]])
 
     # Compute chord
@@ -537,7 +537,7 @@ def compute_section_properties(coords2D):
             [np.sin(np.deg2rad(twist)), np.cos(np.deg2rad(twist))],
         ]
     )
-    coords_disp = (R @ (coords2D[:, :] - x_le).T).T
+    coords_disp = (R @ (coords2D - x_le).T).T
 
     # Isolate coordinates
     coords_top = np.flip(coords_disp[0:i_max_dist, :], axis=0)

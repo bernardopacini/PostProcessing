@@ -78,7 +78,7 @@ def sort_airfoil(coords, arclen):
         # Sort coordinates
         coords_sort = np.zeros((n_points, 2))
         arclen_sort = np.zeros(n_points)
-        indice_sort = np.zeros(n_points)
+        indice_sort = np.zeros(n_points, dtype=int)
         i_segment_start = 0
         for i_segment, flip in zip(segment_order, segment_flip):
             i_segment_end = i_segment_start + segments[i_segment][1] - segments[i_segment][0] + 1
@@ -105,6 +105,8 @@ def sort_airfoil(coords, arclen):
         coords = coords_sort
         arclen = arclen_sort
         indice = indice_sort
+    else:
+        indice = np.arange(0, np.size(arc_length), dtype=int)
 
     # Remove duplicate nodes
     coords_x_unique = sorted(np.unique(coords[:, 0], return_index=True)[1])
@@ -117,6 +119,7 @@ def sort_airfoil(coords, arclen):
 
     coords = np.array([coords[:, 0][mask], coords[:, 1][mask]]).T
     arclen = arclen[mask]
+    indice = indice[mask]
     n_points = np.size(arclen)
 
     # Compute area to ensure counter-clockwise orientation
