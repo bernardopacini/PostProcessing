@@ -1,7 +1,6 @@
 import numpy as np
 
 
-# TODO: Update this function to sort segments, ensure clockwise orientation, then shift so top TE point is first.
 def sort_airfoil(coords, arclen):
     """
     Airfoil slices from Paraview are typically well sorted because they follow
@@ -26,125 +25,119 @@ def sort_airfoil(coords, arclen):
     ndarray
         Indice mapping from unsorted to sorted coordinate array.
     """
-    x = np.array(coords[:, 0])
-    y = np.array(coords[:, 1])
-    nPoints = len(x)
+    n_points = np.size(coords, 0)
 
-    # Find Segments
+    # Find segments
     segments = []
-    iStart = 0
-    for i in range(1, nPoints):
+    i_start = 0
+    for i in range(1, n_points):
         if arclen[i] < arclen[i - 1]:
-            segments.append((iStart, i))
-            iStart = i
+            segments.append((i_start, i - 1))
+            i_start = i
 
-    segments.append((iStart, nPoints))
-    if len(segments) == 1:
-        # Assumes one continuous segment. Checks the direction to be
-        # counter-clockwise and checks starting point to be the top of the TE.
-        pass
+    segments.append((i_start, n_points - 1))
 
-    elif len(segments) == 2:
-        raise RuntimeWarning("Sorting two-segment airfoils is not yet supported!")
+    # Sort segments
+    if len(segments) > 1:
+        segment_order = [0]
+        segment_flip = [False]
 
-    elif len(segments) == 3:
-        # Assumes the segments are Top, Bottom, and TE. Sorts by averaging
-        # values to determine where segments are in relation to each other.
-
-        # Find TE Segment
-        meanX = -np.inf
-        segTE = -1
+        # Find segment end points
+        segment_ends = np.zeros((len(segments), 2, 2))
         for i in range(len(segments)):
-            mean = np.mean(x[segments[i][0] : segments[i][1]])
-            if mean > meanX:
-                segTE = i
-                meanX = mean
+            segment_ends[i, 0, :] = coords[segments[i][0], :]
+            segment_ends[i, 1, :] = coords[segments[i][1], :]
 
-        if segTE == -1:
-            raise RuntimeError("Trailing edge segment not found!")
+        # Form change of segments, connecting matching endpoints
+        current_end = segment_ends[0, 1, :]
+        segment_list = list(range(1, len(segments)))
+        for i in range(1, len(segments)):
+            segment_found = False
 
-        # Find Top Segment
-        meanY = -np.inf
-        segTop = -1
-        for i in range(len(segments)):
-            if i == segTE:
-                continue
+            for j in range(len(segment_list)):
+                # Try starting point
+                if np.linalg.norm(segment_ends[segment_list[j], 0, :] - current_end) < 1e-8:
+                    current_end = segment_ends[segment_list[j], 1, :]
+                    segment_flip.append(False)
+                    segment_found = True
 
-            mean = np.mean(y[segments[i][0] : segments[i][1]])
-            if mean > meanY:
-                segTop = i
-                meanY = mean
+                # Try end point
+                elif np.linalg.norm(segment_ends[segment_list[j], 1, :] - current_end) < 1e-8:
+                    current_end = segment_ends[segment_list[j], 0, :]
+                    segment_flip.append(True)
+                    segment_found = True
 
-        if segTop == -1:
-            raise RuntimeError("Top surface segment not found!")
+                if segment_found:
+                    segment_order.append(segment_list[j])
+                    segment_list.pop(j)
+                    break
 
-        for i in range(len(segments)):
-            if i != segTE and i != segTop:
-                segBot = i
+            if not segment_found:
+                raise RuntimeError("Connected segment not found. Ensure the airfoil slice is closed.")
 
-        # Sort and Combine Segments
-        xSort = np.zeros(nPoints)
-        ySort = np.zeros(nPoints)
-        arclenSort = np.zeros(nPoints)
+        # Sort coordinates
+        coords_sort = np.zeros((n_points, 2))
+        arclen_sort = np.zeros(n_points)
+        indice_sort = np.zeros(n_points)
+        i_segment_start = 0
+        for i_segment, flip in zip(segment_order, segment_flip):
+            i_segment_end = i_segment_start + segments[i_segment][1] - segments[i_segment][0] + 1
+            if flip:
+                coords_sort[i_segment_start:i_segment_end] = np.flip(
+                    coords[segments[i_segment][0] : segments[i_segment][1] + 1, :], axis=0
+                )
+                arclen_sort[i_segment_start:i_segment_end] = np.flip(
+                    arclen[segments[i_segment][0] : segments[i_segment][1] + 1]
+                )
+                indice_sort[i_segment_start:i_segment_end] = np.flip(
+                    np.arange(segments[i_segment][0], segments[i_segment][1] + 1, dtype=int)
+                )
+            else:
+                coords_sort[i_segment_start:i_segment_end] = coords[
+                    segments[i_segment][0] : segments[i_segment][1] + 1, :
+                ]
+                arclen_sort[i_segment_start:i_segment_end] = arclen[segments[i_segment][0] : segments[i_segment][1] + 1]
+                indice_sort[i_segment_start:i_segment_end] = np.arange(
+                    segments[i_segment][0], segments[i_segment][1] + 1, dtype=int
+                )
+            i_segment_start = i_segment_end
 
-        # Top Surface
-        iStart = segments[segTop][0]
-        iEnd = segments[segTop][1]
-        nPointsTop = iEnd - iStart
+        coords = coords_sort
+        arclen = arclen_sort
+        indice = indice_sort
 
-        if x[iStart] > x[iEnd - 1]:
-            xSort[0:nPointsTop] = x[iStart:iEnd]
-            ySort[0:nPointsTop] = y[iStart:iEnd]
-            arclenSort[0:nPointsTop] = arclen[iStart:iEnd]
-        else:
-            xSort[0:nPointsTop] = np.flip(x[iStart:iEnd])
-            ySort[0:nPointsTop] = np.flip(y[iStart:iEnd])
-            arclenSort[0:nPointsTop] = np.flip(arclen[iStart:iEnd])
+    # Remove duplicate nodes
+    coords_x_unique = sorted(np.unique(coords[:, 0], return_index=True)[1])
+    coords_y_unique = sorted(np.unique(coords[:, 1], return_index=True)[1])
 
-        # Bottom Surface
-        iStart = segments[segBot][0]
-        iEnd = segments[segBot][1]
-        nPointsBot = iEnd - iStart
-
-        if x[iStart] < x[iEnd - 1]:
-            xSort[nPointsTop : nPointsTop + nPointsBot] = x[iStart:iEnd]
-            ySort[nPointsTop : nPointsTop + nPointsBot] = y[iStart:iEnd]
-            arclenSort[nPointsTop : nPointsTop + nPointsBot] = arclen[iStart:iEnd]
-        else:
-            xSort[nPointsTop : nPointsTop + nPointsBot] = np.flip(x[iStart:iEnd])
-            ySort[nPointsTop : nPointsTop + nPointsBot] = np.flip(y[iStart:iEnd])
-            arclenSort[nPointsTop : nPointsTop + nPointsBot] = np.flip(arclen[iStart:iEnd])
-
-        # TE
-        iStart = segments[segTE][0]
-        iEnd = segments[segTE][1]
-        nPointsTE = iEnd - iStart
-
-        if y[iStart] < y[iEnd - 1]:
-            xSort[nPointsTop + nPointsBot : nPointsTop + nPointsBot + nPointsTE] = x[iStart:iEnd]
-            ySort[nPointsTop + nPointsBot : nPointsTop + nPointsBot + nPointsTE] = y[iStart:iEnd]
-            arclenSort[nPointsTop + nPointsBot : nPointsTop + nPointsBot + nPointsTE] = arclen[iStart:iEnd]
-        else:
-            xSort[nPointsTop + nPointsBot : nPointsTop + nPointsBot + nPointsTE] = np.flip(x[iStart:iEnd])
-            ySort[nPointsTop + nPointsBot : nPointsTop + nPointsBot + nPointsTE] = np.flip(y[iStart:iEnd])
-            arclenSort[nPointsTop + nPointsBot : nPointsTop + nPointsBot + nPointsTE] = np.flip(arclen[iStart:iEnd])
-    else:
-        raise RuntimeError("Unable to sort airfoil, {} segments found".format(len(segments)))
-
-    # Remove Duplicates
-    xiSortUni = sorted(np.unique(xSort, return_index=True)[1])
-    yiSortUni = sorted(np.unique(ySort, return_index=True)[1])
-
-    mask = np.ones(nPoints, dtype=bool)
-    for i in range(nPoints):
-        if i not in xiSortUni and i not in yiSortUni:
+    mask = np.ones(n_points, dtype=bool)
+    for i in range(n_points):
+        if i not in coords_x_unique and i not in coords_y_unique:
             mask[i] = False
 
-    xSort = xSort[mask]
-    ySort = ySort[mask]
-    arclenSort = arclenSort[mask]
+    coords = np.array([coords[:, 0][mask], coords[:, 1][mask]]).T
+    arclen = arclen[mask]
+    n_points = np.size(arclen)
 
-    return np.array([xSort, ySort]).T, arclenSort, None
+    # Compute area to ensure counter-clockwise orientation
+    area = 0.0
+    for i in range(n_points - 1):
+        area += coords[i, 0] * coords[i + 1, 1] - coords[i, 1] * coords[i + 1, 0]
+    area *= 0.5
+
+    if area < 0:
+        coords = np.flip(coords, axis=0)
+        arclen = np.flip(arclen)
+        indice = np.flip(indice)
+
+    # Shift coordinates to start at upper trailing edge point
+    _, te_idx = find_te(coords)
+
+    coords = np.roll(coords, -te_idx[0], axis=0)
+    arclen = np.roll(arclen, -te_idx[0])
+    indice = np.roll(indice, -te_idx[0])
+
+    return coords, arclen, indice
 
 
 def find_te(coords):
@@ -179,7 +172,10 @@ def find_te(coords):
             a = coords[i - 1, :] - coords[i, :]
             b = coords[i + 1, :] - coords[i, :]
 
-        theta[i] = np.arccos(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
+        if np.abs(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))) < 1.0:
+            theta[i] = np.arccos(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
+        else:
+            theta[i] = np.pi
 
     # Find TE candidates
     te_candidates = np.argwhere(theta < np.deg2rad(145.0))[:, 0]
@@ -190,8 +186,10 @@ def find_te(coords):
         print(
             "Warning: found more than 2 trailing edge point candidates. Selecting the points with the largest X values."
         )
-        idxs = np.argsort(coords[te_candidates, 0])[-2:]
+        te_candidates = np.argsort(coords[te_candidates, 0])[-2:]
 
+    if coords[te_candidates[0], 1] < coords[te_candidates[1], 1]:
+        te_candidates = np.flip(te_candidates)
     te_pts = np.array([coords[te_candidates[0], :], coords[te_candidates[1], :]])
     te_idx = np.array([te_candidates[0], te_candidates[1]])
 
