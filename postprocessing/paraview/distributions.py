@@ -21,6 +21,17 @@ def generate_force_distribution_cmd():
     command line with arguments.
     """
     # Parse arguments
+    parser = generate_force_distribution_parser()
+
+    # Call function
+    generate_force_distribution(**vars(parser.parse_args()))
+
+
+def generate_force_distribution_parser():
+    """
+    Parser for options for the generate_force_distribution() function to call it from the
+    command line with arguments.
+    """
     parser = argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument(
         "-i",
@@ -90,9 +101,7 @@ def generate_force_distribution_cmd():
         type=int,
         default=100,
     )
-
-    # Call function
-    generate_force_distribution(**vars(parser.parse_args()))
+    return parser
 
 
 def generate_force_distribution(
@@ -232,6 +241,17 @@ def generate_geometry_distribution_cmd():
     command line with arguments.
     """
     # Parse arguments
+    parser = generate_geometry_distribution_parser()
+
+    # Call function
+    generate_geometry_distribution(**vars(parser.parse_args()))
+
+
+def generate_geometry_distribution_parser():
+    """
+    Parser for options for the generate_geometry_distribution() function to call it from the
+    command line with arguments.
+    """
     parser = argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument(
         "-i",
@@ -309,9 +329,7 @@ def generate_geometry_distribution_cmd():
         type=int,
         default=100,
     )
-
-    # Call function
-    generate_geometry_distribution(**vars(parser.parse_args()))
+    return parser
 
 
 def generate_geometry_distribution(

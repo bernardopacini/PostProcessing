@@ -19,6 +19,17 @@ def generate_slices_cp_cmd():
     command line with arguments.
     """
     # Parse arguments
+    parser = generate_slices_cp_parser()
+
+    # Call function
+    generate_slices_cp(**vars(parser.parse_args()))
+
+
+def generate_slices_cp_parser():
+    """
+    Parser for options for the generate_slices_cp() function to call it from the
+    command line with arguments.
+    """
     parser = argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument(
         "-i",
@@ -99,9 +110,7 @@ def generate_slices_cp_cmd():
         help="Freestream pressure.",
         type=float,
     )
-
-    # Call function
-    generate_slices_cp(**vars(parser.parse_args()))
+    return parser
 
 
 def generate_slices_cp(
