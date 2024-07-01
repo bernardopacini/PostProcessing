@@ -29,6 +29,11 @@ def generate_slices_cp_parser():
     """
     Parser for options for the generate_slices_cp() function to call it from the
     command line with arguments.
+
+    Returns
+    -------
+    parser
+        Parser with specified arguments.
     """
     parser = argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument(

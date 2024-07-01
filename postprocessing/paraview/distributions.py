@@ -31,6 +31,11 @@ def generate_force_distribution_parser():
     """
     Parser for options for the generate_force_distribution() function to call it from the
     command line with arguments.
+
+    Returns
+    -------
+    parser
+        Parser with specified arguments.
     """
     parser = argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument(
@@ -251,6 +256,11 @@ def generate_geometry_distribution_parser():
     """
     Parser for options for the generate_geometry_distribution() function to call it from the
     command line with arguments.
+
+    Returns
+    -------
+    parser
+        Parser with specified arguments.
     """
     parser = argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument(
