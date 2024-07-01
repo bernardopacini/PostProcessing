@@ -1,0 +1,40 @@
+name: Style Checks
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  flake8:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Run Flake8 Check
+      run: |
+        pip3 install -e .[style]
+        flake8 . --count --show-source --statistics
+
+  black:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Run Black Check
+      run: |
+        pip3 install -e .[style]
+        black ./ --check --diff -l 120
