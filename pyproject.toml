@@ -34,10 +34,20 @@ dependencies = [
 
 [project.optional-dependencies]
 all = [
-    "postprocessing[docs]",
+    "postprocessing[doc,style]",
 ]
-docs = [
+doc = [
     "sphinx",
+    "sphinx-rtd-theme",
+    "sphinx-argparse",
+    "sphinx-prompt",
+    "sphinx-autoapi",
+    "sphinxcontrib-bibtex",
+    "numpydoc",
+]
+style = [
+    "black==24.4.2",
+    "flake8==7.1.0",
 ]
 
 [project.scripts]

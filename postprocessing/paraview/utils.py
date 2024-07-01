@@ -106,7 +106,7 @@ def sort_airfoil(coords, arclen):
         arclen = arclen_sort
         indice = indice_sort
     else:
-        indice = np.arange(0, np.size(arc_length), dtype=int)
+        indice = np.arange(0, np.size(arclen), dtype=int)
 
     # Remove duplicate nodes
     coords_x_unique = sorted(np.unique(coords[:, 0], return_index=True)[1])

@@ -171,15 +171,15 @@ def generate_slices_cp(
         raise RuntimeError("Output directory {} does not exist.".format(output_directory))
 
     # Check that slice locations were provided
-    if x == None:
+    if x is None:
         raise ValueError("No slice locations (x) provided.")
 
     # Check that freestream values were provided
-    if rho0 == None:
+    if rho0 is None:
         raise ValueError("No freestream density (rho0) provided.")
-    if u0 == None:
+    if u0 is None:
         raise ValueError("No freestream velocity (u0) provided.")
-    if p0 == None:
+    if p0 is None:
         raise ValueError("No freestream pressure (p0) provided.")
 
     # Generate direction vectors
@@ -199,7 +199,7 @@ def generate_slices_cp(
     x = x_slice
 
     # Import case
-    if input_file == None:
+    if input_file is None:
         raise ValueError("Input file not set.")
     paraviewfoam = paraview.OpenFOAMReader(
         registrationName="paraview.foam", FileName=str(os.getcwd()) + "/{}".format(input_file)

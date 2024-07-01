@@ -20,7 +20,7 @@ jobs:
 
     - name: Run Flake8 Check
       run: |
-        pip3 install flake8==7.1.0
+        pip3 install -e .[style]
         flake8 . --count --show-source --statistics
 
   black:
@@ -36,5 +36,5 @@ jobs:
 
     - name: Run Black Check
       run: |
-        pip3 install black==24.4.2
+        pip3 install -e .[style]
         black ./ --check --diff -l 120

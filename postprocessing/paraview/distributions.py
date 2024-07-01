@@ -172,7 +172,7 @@ def generate_force_distribution(
     ).T
 
     # Import case
-    if input_file == None:
+    if input_file is None:
         raise ValueError("Input file not set.")
     paraviewfoam = paraview.OpenFOAMReader(
         registrationName="paraview.foam", FileName=str(os.getcwd()) + "/{}".format(input_file)
@@ -410,7 +410,7 @@ def generate_geometry_distribution(
     ).T
 
     # Import case
-    if input_file == None:
+    if input_file is None:
         raise ValueError("Input file not set.")
     paraviewfoam = paraview.OpenFOAMReader(
         registrationName="paraview.foam", FileName=str(os.getcwd()) + "/{}".format(input_file)
