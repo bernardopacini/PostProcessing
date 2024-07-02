@@ -7,8 +7,8 @@ Computing these distributions is done through ParaView by importing the case, sl
 
 .. note::
 
-   This utility expects a variable called ``force`` that is the force divided by area on each surface cell face.
-   For the utility to work, this ``force`` variable must exist for the surfaces included in the force computation.
+   This utility expects a variable called ``forcePerS`` that is the force divided by area on each surface cell face.
+   For the utility to work, this ``forcePerS`` variable must exist for the surfaces included in the force computation.
 
 The force of a particular slice is computed by projecting the force on each cell face in the direction specified by the user.
 The forces are then integrated over the slice to compute the total force.

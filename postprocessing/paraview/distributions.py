@@ -178,7 +178,7 @@ def generate_force_distribution(
         registrationName="paraview.foam", FileName=str(os.getcwd()) + "/{}".format(input_file)
     )
     paraviewfoam.MeshRegions = patches
-    paraviewfoam.CellArrays = ["force"]
+    paraviewfoam.CellArrays = ["forcePerS"]
 
     # Read time data
     animationScene1 = paraview.GetAnimationScene()
@@ -206,7 +206,7 @@ def generate_force_distribution(
             # Set calculator
             calculator1 = paraview.Calculator(registrationName="Calculator", Input=slice1)
             calculator1.ResultArrayName = "force_dot_dir"
-            calculator1.Function = "dot(force,{}*iHat + {}*jHat + {}*kHat)".format(
+            calculator1.Function = "dot(forcePerS,{}*iHat + {}*jHat + {}*kHat)".format(
                 force_direction[0], force_direction[1], force_direction[2]
             )
 
