@@ -24,15 +24,15 @@ To call the utility from the command line, simply call the utility using the fol
 
 .. argparse::
    :filename: ../postprocessing/paraview/distributions.py
-   :func: generate_geometry_distribution_parser
-   :prog: generate_geometry_distribution
+   :func: geometry_distribution_parser
+   :prog: geometry_distribution
 
 Python API
 ----------
 
 To call the utility from Python, import the necessary modules and call the function with necessary imputs:
 
-.. autoapifunction:: postprocessing.paraview.distributions.generate_geometry_distribution
+.. autoapifunction:: postprocessing.paraview.distributions.geometry_distribution
    :noindex:
 
 .. bibliography::

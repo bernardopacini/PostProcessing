@@ -24,13 +24,13 @@ To call the utility from the command line, simply call the utility using the fol
 
 .. argparse::
    :filename: ../postprocessing/paraview/distributions.py
-   :func: generate_force_distribution_parser
-   :prog: generate_force_distribution
+   :func: force_distribution_parser
+   :prog: force_distribution
 
 Python API
 ----------
 
 To call the utility from Python, import the necessary modules and call the function with the necessary inputs:
 
-.. autoapifunction:: postprocessing.paraview.distributions.generate_force_distribution
+.. autoapifunction:: postprocessing.paraview.distributions.force_distribution
    :noindex:

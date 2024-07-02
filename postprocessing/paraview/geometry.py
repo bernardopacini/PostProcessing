@@ -47,6 +47,14 @@ def extract_geometry_parser():
         default="./",
     )
     parser.add_argument(
+        "-p",
+        "--patches",
+        help="Patches to include in the geometry file. Default is group/wall.",
+        type=str,
+        nargs="+",
+        default="group/wall",
+    )
+    parser.add_argument(
         "-ow",
         "--overwrite",
         help="Flag to overwrite existing temporary geometry and geometry files. Default is False.",
@@ -56,7 +64,7 @@ def extract_geometry_parser():
     return parser
 
 
-def extract_geometry(input_file=None, output_directory="./", overwrite="False"):
+def extract_geometry(input_file=None, output_directory="./", patches="group/wall", overwrite="False"):
     """
     Function to extract a geometry from an OpenFOAM mesh and write it as an
     STL.
@@ -68,6 +76,8 @@ def extract_geometry(input_file=None, output_directory="./", overwrite="False"):
     output_directory : str
         Path to directory where the geometry files will be written. Default is
         "./".
+    patches : str or list
+        Patch name(s) to include in the geometry. Default is "group/wall".
     overwrite : str
         Flag to overwrite existing temporary geometry and geometry files.
         Default is False.
@@ -91,10 +101,9 @@ def extract_geometry(input_file=None, output_directory="./", overwrite="False"):
     paraviewfoam = paraview.OpenFOAMReader(
         registrationName="paraview.foam", FileName=str(os.getcwd()) + "/{}".format(input_file)
     )
-    paraviewfoam.MeshRegions = ["group/wall"]
+    paraviewfoam.MeshRegions = patches
 
     # Save walls to STLs
-
     paraview.SaveData(output_directory + "/Temp.stl", proxy=paraviewfoam, FieldDataArrays=["CasePath"])
 
     # Close OpenFOAM case
