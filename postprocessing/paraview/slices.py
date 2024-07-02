@@ -146,7 +146,7 @@ def slices_cp(
         Name pattern to write out files in the output directory. Default is
         "slice".
     patches : str or list
-        Patch name(s) over which to compute the force distribution. Default
+        Patch name(s) over which to compute the slice(s). Default
         is "group/wall".
     span_direction : str or list
         Vector direction for span direction either as a string (eg. X) or list
