@@ -22,13 +22,13 @@ To call the utility from the command line, simply call the utility using the fol
 
 .. argparse::
    :filename: ../postprocessing/paraview/slices.py
-   :func: generate_slices_cp_parser
-   :prog: generate_slices_cp
+   :func: slices_cp_parser
+   :prog: slices_cp
 
 Python API
 ----------
 
 To call the utility from Python, import the necessary modules and call the function with the necessary inputs:
 
-.. autoapifunction:: postprocessing.paraview.slices.generate_slices_cp
+.. autoapifunction:: postprocessing.paraview.slices.slices_cp
    :noindex:

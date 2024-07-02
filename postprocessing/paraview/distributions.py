@@ -15,22 +15,22 @@ import postprocessing.utils as utils
 import postprocessing.paraview.utils as pv_utils
 
 
-def generate_force_distribution_cmd():
+def force_distribution_cmd():
     """
-    Wrapper around the generate_force_distribution() function to call it from the
-    command line with arguments.
+    Wrapper around the force_distribution() function to call it from
+    the command line with arguments.
     """
     # Parse arguments
-    parser = generate_force_distribution_parser()
+    parser = force_distribution_parser()
 
     # Call function
-    generate_force_distribution(**vars(parser.parse_args()))
+    force_distribution(**vars(parser.parse_args()))
 
 
-def generate_force_distribution_parser():
+def force_distribution_parser():
     """
-    Parser for options for the generate_force_distribution() function to call it from the
-    command line with arguments.
+    Parser for options for the force_distribution() function to call
+    it from the command line with arguments.
 
     Returns
     -------
@@ -48,9 +48,9 @@ def generate_force_distribution_parser():
     parser.add_argument(
         "-o",
         "--output_directory",
-        help="Relative path to output directory.",
+        help="Relative path to output directory. Default is ./",
         type=str,
-        default="",
+        default="./",
     )
     parser.add_argument(
         "-n",
@@ -109,7 +109,7 @@ def generate_force_distribution_parser():
     return parser
 
 
-def generate_force_distribution(
+def force_distribution(
     input_file=None,
     output_directory="./",
     name="force_distribution",
@@ -240,21 +240,21 @@ def generate_force_distribution(
             csvwriter.writerows(results)
 
 
-def generate_geometry_distribution_cmd():
+def geometry_distribution_cmd():
     """
-    Wrapper around the generate_geometry_distribution() function to call it from the
+    Wrapper around the geometry_distribution() function to call it from the
     command line with arguments.
     """
     # Parse arguments
-    parser = generate_geometry_distribution_parser()
+    parser = geometry_distribution_parser()
 
     # Call function
-    generate_geometry_distribution(**vars(parser.parse_args()))
+    geometry_distribution(**vars(parser.parse_args()))
 
 
-def generate_geometry_distribution_parser():
+def geometry_distribution_parser():
     """
-    Parser for options for the generate_geometry_distribution() function to call it from the
+    Parser for options for the geometry_distribution() function to call it from the
     command line with arguments.
 
     Returns
@@ -273,9 +273,9 @@ def generate_geometry_distribution_parser():
     parser.add_argument(
         "-o",
         "--output_directory",
-        help="Relative path to output directory.",
+        help="Relative path to output directory. Default is ./",
         type=str,
-        default="",
+        default="./",
     )
     parser.add_argument(
         "-n",
@@ -342,7 +342,7 @@ def generate_geometry_distribution_parser():
     return parser
 
 
-def generate_geometry_distribution(
+def geometry_distribution(
     input_file=None,
     output_directory="./",
     name="geometry_distribution",

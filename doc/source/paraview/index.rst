@@ -64,6 +64,7 @@ They are listed below and detailed in the following sections.
 .. toctree::
    :maxdepth: 1
 
-   distributionGeometry
-   distributionForce
+   extract_geometry
+   distribution_geometry
+   distribution_force
    slicesCP

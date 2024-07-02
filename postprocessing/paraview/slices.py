@@ -13,22 +13,22 @@ import postprocessing.utils as utils
 import postprocessing.paraview.utils as pv_utils
 
 
-def generate_slices_cp_cmd():
+def slices_cp_cmd():
     """
-    Wrapper around the generate_slices_cp() function to call it from the
+    Wrapper around the slices_cp() function to call it from the
     command line with arguments.
     """
     # Parse arguments
-    parser = generate_slices_cp_parser()
+    parser = slices_cp_parser()
 
     # Call function
-    generate_slices_cp(**vars(parser.parse_args()))
+    slices_cp(**vars(parser.parse_args()))
 
 
-def generate_slices_cp_parser():
+def slices_cp_parser():
     """
-    Parser for options for the generate_slices_cp() function to call it from the
-    command line with arguments.
+    Parser for options for the slices_cp() function to call it from
+    the command line with arguments.
 
     Returns
     -------
@@ -46,9 +46,9 @@ def generate_slices_cp_parser():
     parser.add_argument(
         "-o",
         "--output_directory",
-        help="Relative path to output directory.",
+        help="Relative path to output directory. Default is ./",
         type=str,
-        default="",
+        default="./",
     )
     parser.add_argument(
         "-n",
@@ -118,7 +118,7 @@ def generate_slices_cp_parser():
     return parser
 
 
-def generate_slices_cp(
+def slices_cp(
     input_file=None,
     output_directory="./",
     name="slice",
