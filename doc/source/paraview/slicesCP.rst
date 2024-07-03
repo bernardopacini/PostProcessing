@@ -1,3 +1,5 @@
+.. _paraview_slicesCP:
+
 Slices CP
 =========
 

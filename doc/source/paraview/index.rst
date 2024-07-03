@@ -1,4 +1,4 @@
-ParaView
+Overview
 ========
 
 `ParaView <https://www.paraview.org>`_ is an opensource visualization tool that is useful for post-processing data.
@@ -64,7 +64,7 @@ They are listed below and detailed in the following sections.
 .. toctree::
    :maxdepth: 1
 
-   extract_geometry
-   distribution_geometry
-   distribution_force
-   slicesCP
+* :ref:`paraview_extract_geometry`
+* :ref:`paraview_distribution_geometry`
+* :ref:`paraview_distribution_force`
+* :ref:`paraview_slicesCP`
