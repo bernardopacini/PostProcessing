@@ -15,7 +15,6 @@ axes.ymargin: 0
 font.family: sans-serif
 font.sans-serif: CMU Bright
 axes.unicode_minus: False
-font.size: 18
 
 xtick.labelsize: small
 ytick.labelsize: small

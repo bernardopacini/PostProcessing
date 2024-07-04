@@ -105,16 +105,17 @@ def get_colors(style_name=None, rcParams=False):
 
 def save_figs(fig, name, formats, format_kwargs=None, **kwargs):
     """
-    Utility to save figures in multiple formats.
+    Function to save figures in multiple file formats with user specied
+    options.
 
     Parameters
     ----------
     fig : Matplotlib figure
-        The figure to save
+        The figure to save.
     name : str
-        Output path for the files, e.g "path/to/file/file_name", no file
+        Output path for the figure files, e.g "path/to/file/file_name". No file
         extension required.
-    formats : str or list of str
+    formats : str or list
         File formats to save the figure in, e.g. "png", "pdf", "svg".
     format_kwargs : dict
         A dictionary of dictionaries, where the keys are the file formats and
@@ -124,11 +125,10 @@ def save_figs(fig, name, formats, format_kwargs=None, **kwargs):
     kwargs :
         Any keyword arguments to pass to `plt.savefig()` for all formats.
     """
-
     # Remove extensions from the filename
     fileName = os.path.splitext(name)[0]
 
-    # Convert string file input to list
+    # Convert the format to list if given as a string
     if isinstance(formats, str):
         formats = [formats]
 
@@ -141,3 +141,47 @@ def save_figs(fig, name, formats, format_kwargs=None, **kwargs):
         if format_kwargs is not None and ext in format_kwargs:
             ext_kwargs.update(format_kwargs[ext])
         fig.savefig(fileName + "." + ext, **ext_kwargs)
+
+def adjust_spines(ax=None, spines=["left", "bottom"], outward=True):
+    """
+    Function to shift the axes/spines.
+
+    Parameters
+    ----------
+    ax : Matplotlib axes
+        Figure axes to adjust. Default is None, which will pickup the current
+        axes.
+    spines : list
+        List of strings defining which spines to adjust. Default is left and
+        bottom.
+    outward : bool
+        Flag to shift spines outward. Default is False.
+    """
+    if ax is None:
+        ax = plt.gca()
+
+    # Loop over spines
+    for loc, spine in ax.spines.items():
+        if loc in spines:
+            ax.spines[loc].set_visible(True)
+            if outward:
+                spine.set_position(("outward", 12))
+        else:
+            ax.spines[loc].set_visible(False)
+
+    # Adjust Y-axis ticks
+    if "left" in spines:
+        ax.yaxis.set_ticks_position("left")
+    elif "right" in spines:
+        ax.yaxis.set_ticks_position("right")
+    else:
+        ax.yaxis.set_visible(False)
+
+    # Adjust X-axis ticks
+    if "bottom" in spines:
+        ax.xaxis.set_ticks_position("bottom")
+    elif "top" in spines:
+        ax.xaxis.set_ticks_position("top")
+    else:
+        # ax.xaxis.set_ticks([])
+        ax.xaxis.set_visible(False)

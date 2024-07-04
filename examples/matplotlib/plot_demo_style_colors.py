@@ -1,7 +1,7 @@
 """
-==============================================================================
 Matplotlib Style Colors Demo
-==============================================================================
+============================
+
 This script demonstrates colors available in each style.
 """
 
@@ -55,7 +55,7 @@ def main():
             ax.set_ylim([0, 1])
             ax.invert_yaxis()
 
-            # Remote splines and ticks
+            # Remove splines and ticks
             ax.spines[["top", "bottom", "left", "right"]].set_visible(False)
             ax.set_xticks(())
             ax.set_yticks(())
