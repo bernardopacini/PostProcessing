@@ -9,7 +9,7 @@ The methods are organized in following structure:
 
 .. toctree::
    :caption: Matplotlib
-   :maxdepth: 2
+   :maxdepth: 1
 
    matplotlib/index
    matplotlib/styles
@@ -17,7 +17,7 @@ The methods are organized in following structure:
 
 .. toctree::
    :caption: ParaView
-   :maxdepth: 2
+   :maxdepth: 1
 
    paraview/index
    paraview/extract_geometry
@@ -29,4 +29,6 @@ The methods are organized in following structure:
    :maxdepth: 1
    :caption: Developer Documentation
 
-   autodoc/postprocessing/index
+   developer_docs/index
+   developer_docs/code_style
+   developer_docs/api

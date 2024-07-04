@@ -41,7 +41,7 @@ extensions = [
 bibtex_bibfiles = ["refs.bib"]
 
 autoapi_dirs = ["../../postprocessing/"]
-autoapi_root = "autodoc/"
+autoapi_root = "developer_docs/autodoc/"
 autoapi_add_toctree_entry = False
 
 # Add any paths that contain templates here, relative to this directory.
