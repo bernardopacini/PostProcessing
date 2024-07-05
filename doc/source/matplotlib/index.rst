@@ -14,6 +14,13 @@ To install Matplotlib, simply install it in your Python environment:
 
     pip3 install matplotlib
 
+The custom styles in this package use fonts that may not be installed on your system.
+These fonts are optional; if a font is not found, Matplotlib will default to the default font (DejaVu Sans).
+To install fonts, install the desired font on your system and delete Matplotlib's font cache(s) located in ``~/.cache/matplotlib``.
+The custom fonts used in this package are:
+
+.. generate_matplotlib_font_list::
+
 Utilities
 ---------
 

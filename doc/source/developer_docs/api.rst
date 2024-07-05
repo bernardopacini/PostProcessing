@@ -11,4 +11,3 @@ The API documentation is detailed in the following sections, organized by packag
     :maxdepth: 2
  
     autodoc/postprocessing/index
- 

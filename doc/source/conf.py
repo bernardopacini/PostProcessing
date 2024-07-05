@@ -15,6 +15,7 @@ import sys
 
 this_dir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath("."))
+sys.path.insert(0, os.path.abspath("./matplotlib"))
 
 # -- Project information -----------------------------------------------------
 
@@ -37,6 +38,7 @@ extensions = [
     "autoapi.extension",
     "numpydoc",
     "sphinx_gallery.gen_gallery",
+    "parse_fonts",
 ]
 bibtex_bibfiles = ["refs.bib"]
 
