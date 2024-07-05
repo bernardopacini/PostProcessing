@@ -81,7 +81,7 @@ def main():
             )
 
             # Add title
-            ax.set_title(f"{formatting}", fontsize=20, pad=15, **font)
+            ax.set_title("{}".format(formatting), fontsize=20, pad=15, **font)
 
             # Adjust spines when possible
             if formatting != "default":
@@ -90,7 +90,7 @@ def main():
                 plt.tight_layout()
             plt.subplots_adjust(left=0.2, right=0.95, bottom=0.2, top=0.85)
 
-    pp_mpl.save_figs(fig, f"demo_styles", ["png", "svg"])
+    pp_mpl.save_figs(fig, "demo_styles", ["png", "svg"])
 
 
 if __name__ == "__main__":

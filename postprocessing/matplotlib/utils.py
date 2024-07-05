@@ -103,45 +103,6 @@ def get_colors(style_name=None, rcParams=False):
         return get_colors_from_current_style(rcParams)
 
 
-def save_figs(fig, name, formats, format_kwargs=None, **kwargs):
-    """
-    Function to save figures in multiple file formats with user specied
-    options.
-
-    Parameters
-    ----------
-    fig : Matplotlib figure
-        The figure to save.
-    name : str
-        Output path for the figure files, e.g "path/to/file/file_name". No file
-        extension required.
-    formats : str or list
-        File formats to save the figure in, e.g. "png", "pdf", "svg".
-    format_kwargs : dict
-        A dictionary of dictionaries, where the keys are the file formats and
-        the values are any keyword arguments that should only be applied to
-        that format. These kwargs will be added to ones passed to all formats,
-        by default None
-    kwargs :
-        Any keyword arguments to pass to `plt.savefig()` for all formats.
-    """
-    # Remove extensions from the filename
-    fileName = os.path.splitext(name)[0]
-
-    # Convert the format to list if given as a string
-    if isinstance(formats, str):
-        formats = [formats]
-
-    # Save the figure
-    for ext in formats:
-        if ext[0] == ".":
-            ext = ext[1:]
-        # Add format-specific kwargs
-        ext_kwargs = copy.deepcopy(kwargs)
-        if format_kwargs is not None and ext in format_kwargs:
-            ext_kwargs.update(format_kwargs[ext])
-        fig.savefig(fileName + "." + ext, **ext_kwargs)
-
 def adjust_spines(ax=None, spines=["left", "bottom"], outward=True):
     """
     Function to shift the axes/spines.
@@ -185,3 +146,43 @@ def adjust_spines(ax=None, spines=["left", "bottom"], outward=True):
     else:
         # ax.xaxis.set_ticks([])
         ax.xaxis.set_visible(False)
+
+
+def save_figs(fig, name, formats, format_kwargs=None, **kwargs):
+    """
+    Function to save figures in multiple file formats with user specied
+    options.
+
+    Parameters
+    ----------
+    fig : Matplotlib figure
+        The figure to save.
+    name : str
+        Output path for the figure files, e.g "path/to/file/file_name". No file
+        extension required.
+    formats : str or list
+        File formats to save the figure in, e.g. "png", "pdf", "svg".
+    format_kwargs : dict
+        A dictionary of dictionaries, where the keys are the file formats and
+        the values are any keyword arguments that should only be applied to
+        that format. These kwargs will be added to ones passed to all formats,
+        by default None
+    kwargs :
+        Any keyword arguments to pass to `plt.savefig()` for all formats.
+    """
+    # Remove extensions from the filename
+    file_name = os.path.splitext(name)[0]
+
+    # Convert the format to list if given as a string
+    if isinstance(formats, str):
+        formats = [formats]
+
+    # Save the figure
+    for ext in formats:
+        if ext[0] == ".":
+            ext = ext[1:]
+        # Add format-specific kwargs
+        ext_kwargs = copy.deepcopy(kwargs)
+        if format_kwargs is not None and ext in format_kwargs:
+            ext_kwargs.update(format_kwargs[ext])
+        fig.savefig(file_name + "." + ext, **ext_kwargs)
