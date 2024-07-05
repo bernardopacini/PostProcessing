@@ -22,4 +22,3 @@ In this package, I provide some styles, utilities, and examples that are listed 
 
 * :ref:`matplotlib_styles`
 * :ref:`auto_examples`
-

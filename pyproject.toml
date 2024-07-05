@@ -56,12 +56,6 @@ pv_force_distribution = "postprocessing.paraview.distributions:force_distributio
 pv_geometry_distribution = "postprocessing.paraview.distributions:geometry_distribution_cmd"
 pv_slices_cp = "postprocessing.paraview.slices:slices_cp_cmd"
 
-[tool.setuptools.packages.find]
-where = ["postprocessing/matplotlib/styles"]
-
-[tool.setuptools.package-data]
-mypkg = ["*.mplstyle"]
-
 [tool.hatch.version]
 path = "postprocessing/__init__.py"
 
