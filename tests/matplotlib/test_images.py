@@ -57,7 +57,9 @@ def images_are_similar(img_1, img_2, tolerance=1.0):
     """
     # Convert images to RGB and NumPy arrays
     img_1_RGB = np.array(img_1.convert("RGB"))
+    print(img_1_RGB.shape)
     img_2_RGB = np.array(img_2.convert("RGB"))
+    print(img_2_RGB.shape)
 
     # Compare images
     similarity_index, _ = ssim(img_1_RGB, img_2_RGB, multichannel=True, channel_axis=-1, full=True)
@@ -102,6 +104,9 @@ class TestMatplotlibExamples(unittest.TestCase):
         # Load images
         baseline_image = Image.open(baseline_image_path)
         output_image = Image.open(output_image_path)
+
+        print(baseline_image_path)
+        print(output_image_path)
 
         # Compare images
         try:
