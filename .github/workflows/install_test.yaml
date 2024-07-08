@@ -27,7 +27,7 @@ jobs:
         curl -L -o cmu-bright.zip https://font.download/dl/font/cmu-bright.zip
         unzip cmu-bright.zip -d cmu-bright
         mkdir -p ~/.local/share/fonts
-        mv cmu-bright/*.tff ~/.local/share/fonts/
+        mv cmu-bright/*.ttf ~/.local/share/fonts/
         fc-cache -f -v ~/.local/share/fonts
 
     - name: Download Input Data
