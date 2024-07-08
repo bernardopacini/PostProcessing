@@ -1,4 +1,4 @@
-name: Matplotlib Checks
+name: Install and Test
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  flake8:
+  matplotlib:
     runs-on: ubuntu-22.04
     timeout-minutes: 10
 
