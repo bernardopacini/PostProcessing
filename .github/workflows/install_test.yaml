@@ -1,0 +1,43 @@
+name: Install and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  matplotlib:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Install Repository and Dependencies
+      run: |
+        pip3 install .[test]
+
+    - name: Install Font(s)
+      run: |
+        fonts="https://font.download/dl/font/cmu-bright.zip"
+        for font in $fonts; do
+          curl -L -o font.zip $font
+          unzip font.zip -d font
+          mkdir -p ~/.local/share/fonts
+          mv font/*.ttf ~/.local/share/fonts/
+          rm -r font/ font.zip
+        done
+        fc-cache -f -v ~/.local/share/fonts
+
+    - name: Download Input Data
+      run: |
+        (cd input_data && ./get_data.sh)
+
+    - name: Run Tests
+      run: |
+        (cd tests/matplotlib && python test_images.py)

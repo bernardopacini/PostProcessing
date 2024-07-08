@@ -90,7 +90,7 @@ def main():
                 plt.tight_layout()
             plt.subplots_adjust(left=0.2, right=0.95, bottom=0.2, top=0.85)
 
-    pp_mpl.save_figs(fig, "demo_styles", ["png", "svg"])
+    pp_mpl.save_figs(fig, "demo_styles", ["png"])
 
 
 if __name__ == "__main__":

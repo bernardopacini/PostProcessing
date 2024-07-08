@@ -28,6 +28,7 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
+    "matplotlib",
     "numpy<2",
     "scipy",
 ]
@@ -44,6 +45,13 @@ doc = [
     "sphinx-autoapi",
     "sphinxcontrib-bibtex",
     "numpydoc",
+]
+test = [
+    "testflo",
+    "parameterized",
+    "gdown",
+    "scikit-image",
+    "pillow",
 ]
 style = [
     "black==24.4.2",

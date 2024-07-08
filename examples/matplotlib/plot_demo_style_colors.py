@@ -60,7 +60,7 @@ def main():
             ax.set_xticks(())
             ax.set_yticks(())
 
-    pp_mpl.save_figs(fig, "demo_style_colors", ["png", "svg"], bbox_inches="tight")
+    pp_mpl.save_figs(fig, "demo_style_colors", ["png"], bbox_inches="tight")
 
 
 if __name__ == "__main__":
