@@ -22,10 +22,18 @@ jobs:
       run: |
         pip3 install .[test]
 
+    - name: Install Font(s)
+      run: |
+        curl -L -o cmu-bright.zip https://font.download/dl/font/cmu-bright.zip
+        unzip cmu-bright.zip -d cmu-bright
+        mkdir -p ~/.local/share/fonts
+        mv cmu-bright/*.tff ~/.local/share/fonts/
+        fc-cache -f -v ~/.local/share/fonts
+
     - name: Download Input Data
       run: |
         (cd input_data && ./get_data.sh)
 
     - name: Run Tests
       run: |
-        (cd tests/matplotlib && testflo -v .)
+        (cd tests/matplotlib && python test_images.py)
