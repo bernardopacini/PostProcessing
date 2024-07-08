@@ -45,6 +45,12 @@ doc = [
     "sphinxcontrib-bibtex",
     "numpydoc",
 ]
+test = [
+    "testflo",
+    "parameterized",
+    "scikit-image",
+    "pillow",
+]
 style = [
     "black==24.4.2",
     "flake8==7.1.0",
