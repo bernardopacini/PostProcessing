@@ -15,6 +15,7 @@ import sys
 
 this_dir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath("."))
+sys.path.insert(0, os.path.abspath("./matplotlib"))
 
 # -- Project information -----------------------------------------------------
 
@@ -30,11 +31,19 @@ author = "Bernardo Pacini"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx-prompt", "sphinxcontrib.bibtex", "sphinxarg.ext", "autoapi.extension", "numpydoc"]
+extensions = [
+    "sphinx-prompt",
+    "sphinxcontrib.bibtex",
+    "sphinxarg.ext",
+    "autoapi.extension",
+    "numpydoc",
+    "sphinx_gallery.gen_gallery",
+    "parse_fonts",
+]
 bibtex_bibfiles = ["refs.bib"]
 
 autoapi_dirs = ["../../postprocessing/"]
-autoapi_root = "autodoc/"
+autoapi_root = "developer_docs/autodoc/"
 autoapi_add_toctree_entry = False
 
 # Add any paths that contain templates here, relative to this directory.
@@ -56,3 +65,8 @@ html_theme = "sphinx_rtd_theme"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = []
+
+sphinx_gallery_conf = {
+    "examples_dirs": "../../examples/matplotlib/",  # path to your example scripts
+    "gallery_dirs": "matplotlib/auto_examples",  # path to where to save gallery generated output
+}

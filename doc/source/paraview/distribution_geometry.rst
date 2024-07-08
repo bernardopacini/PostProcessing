@@ -1,3 +1,5 @@
+.. _paraview_distribution_geometry:
+
 Geometry Distribution
 =====================
 

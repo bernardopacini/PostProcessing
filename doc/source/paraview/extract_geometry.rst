@@ -1,3 +1,5 @@
+.. _paraview_extract_geometry:
+
 Extract Geometry
 ================
 

@@ -8,7 +8,27 @@ The methods are organized by tool type and some may require licenses.
 The methods are organized in following structure:
 
 .. toctree::
+   :caption: Matplotlib
+   :maxdepth: 1
+
+   matplotlib/index
+   matplotlib/styles
+   matplotlib/auto_examples/index
+
+.. toctree::
+   :caption: ParaView
    :maxdepth: 1
 
    paraview/index
-   autodoc/postprocessing/index
+   paraview/extract_geometry
+   paraview/distribution_geometry
+   paraview/distribution_force
+   paraview/slicesCP
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Developer Documentation
+
+   developer_docs/index
+   developer_docs/code_style
+   developer_docs/api
