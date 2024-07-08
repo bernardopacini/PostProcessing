@@ -2,8 +2,8 @@ Post-Processing
 ===============
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Style Checks](https://github.com/bernardopacini/PostProcessing/actions/workflows/formatting.yaml/badge.svg)](https://github.com/bernardopacini/PostProcessing/actions/workflows/formatting.yaml)
-[![Install and Test](https://github.com/bernardopacini/PostProcessing/actions/workflows/install_test.yaml/badge.svg)](https://github.com/bernardopacini/PostProcessing/actions/workflows/install_test.yaml)
+[![Style Checks](https://github.com/bernardopacini/PostProcessing/actions/workflows/formatting.yaml/badge.svg?branch=main)](https://github.com/bernardopacini/PostProcessing/actions/workflows/formatting.yaml)
+[![Install and Test](https://github.com/bernardopacini/PostProcessing/actions/workflows/install_test.yaml/badge.svg?branch=main)](https://github.com/bernardopacini/PostProcessing/actions/workflows/install_test.yaml)
 
 This package is a collection of utilities and techinques for post-processing aerospace related analyses and optimizations.
 The tools in this package are developed to automate workflows that can be scripted to avoid repeated operations when post-processing cases.
