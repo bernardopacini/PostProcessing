@@ -9,8 +9,8 @@ from skimage.metrics import structural_similarity as ssim
 
 # Directory paths
 example_dir = os.path.join(os.path.dirname(__file__), "../../examples/matplotlib")
-baseline_dir = os.path.join(os.path.dirname(__file__), "../../examples/matplotlib")
-output_dir = os.path.join(os.path.dirname(__file__), "./")
+baseline_dir = os.path.join(os.path.dirname(__file__), "../../input_data/DATA-PostProcessing/matplotlib")
+output_dir = os.getcwd()
 
 
 def run_example_script(script_path, output_dir):

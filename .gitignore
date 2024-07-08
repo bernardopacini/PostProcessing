@@ -6,6 +6,10 @@
 *doc/source/sg_execution_times.rst
 *doc/source/matplotlib/auto_examples/*
 
+# Input Data
+*input_data/*
+!input_data/get_data.sh
+
 # Miscellaneous
 *.pyc
 *.pickle
