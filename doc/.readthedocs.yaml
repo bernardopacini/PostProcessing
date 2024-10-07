@@ -12,3 +12,6 @@ python:
       
 sphinx:
   configuration: doc/source/conf.py
+
+commands:
+  - ls -R
