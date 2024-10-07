@@ -38,7 +38,7 @@ all = [
     "postprocessing[doc,style]",
 ]
 doc = [
-    "sphinx==5.1.1",
+    "sphinx",
     "sphinx-rtd-theme",
     "sphinx-argparse",
     "sphinx-prompt",
