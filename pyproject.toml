@@ -39,7 +39,7 @@ all = [
 ]
 doc = [
     "sphinx",
-    "sphinx-rtd-theme",
+    "sphinx-rtd-theme>=2.0.0",
     "sphinx-argparse",
     "sphinx-prompt",
     "sphinx-autoapi",
