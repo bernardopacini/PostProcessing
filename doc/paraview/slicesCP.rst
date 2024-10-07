@@ -23,7 +23,7 @@ Command Line
 To call the utility from the command line, simply call the utility using the following command with the desired options:
 
 .. argparse::
-   :filename: postprocessing/paraview/slices.py
+   :filename: ../postprocessing/paraview/slices.py
    :func: slices_cp_parser
    :prog: slices_cp
 

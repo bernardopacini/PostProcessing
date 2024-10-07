@@ -14,9 +14,6 @@ import os
 import sys
 from unittest.mock import MagicMock
 
-print("Current Working Directory:", os.getcwd())
-print("Files in the docs directory:", os.listdir(os.getcwd()))
-
 # List the modules you want to mock
 MOCK_MODULES = ["paraview.simple", "vtk.util"]
 sys.modules.update((mod_name, MagicMock()) for mod_name in MOCK_MODULES)
@@ -50,7 +47,7 @@ extensions = [
 ]
 bibtex_bibfiles = ["refs.bib"]
 
-autoapi_dirs = ["../../postprocessing/"]
+autoapi_dirs = ["../postprocessing/"]
 autoapi_root = "developer_docs/autodoc/"
 autoapi_add_toctree_entry = False
 
@@ -75,6 +72,6 @@ html_theme = "sphinx_rtd_theme"
 html_static_path = []
 
 sphinx_gallery_conf = {
-    "examples_dirs": "../../examples/matplotlib/",  # path to your example scripts
+    "examples_dirs": "../examples/matplotlib/",  # path to your example scripts
     "gallery_dirs": "matplotlib/auto_examples",  # path to where to save gallery generated output
 }
