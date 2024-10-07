@@ -12,6 +12,11 @@
 #
 import os
 import sys
+from unittest.mock import MagicMock
+
+# List the modules you want to mock
+MOCK_MODULES = ["paraview.simple", "vtk.util"]
+sys.modules.update((mod_name, MagicMock()) for mod_name in MOCK_MODULES)
 
 this_dir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath("."))
