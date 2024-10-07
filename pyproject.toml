@@ -43,6 +43,7 @@ doc = [
     "sphinx-argparse",
     "sphinx-prompt",
     "sphinx-autoapi",
+    "sphinx-gallery",
     "sphinxcontrib-bibtex",
     "numpydoc",
 ]
