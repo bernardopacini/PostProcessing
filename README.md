@@ -29,12 +29,11 @@ Documentation
 -------------
 
 This repository and the utilities in it are accompanied by documentation.
-To build and open this documentation, install the documentation dependencies and navigate to the documentation directory, `/doc`.
-To build the documentation and open the files, use the following commands:
+To build and open this documentation, install the documentation dependencies and run the following commands:
 
 ```
-make html
-open build/html/index.html
+sphinx-build -b html doc/source doc/build/html
+open doc/build/html/index.html
 ```
 
 The documentation will open in a web browser.

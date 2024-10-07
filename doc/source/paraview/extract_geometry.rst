@@ -16,7 +16,7 @@ Command Line
 To call the utility from the command line, simply call the utility using the following command with the desired options:
 
 .. argparse::
-   :filename: ../postprocessing/paraview/geometry.py
+   :filename: postprocessing/paraview/geometry.py
    :func: extract_geometry_parser
    :prog: extract_geometry
 
