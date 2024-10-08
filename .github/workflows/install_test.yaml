@@ -24,7 +24,7 @@ jobs:
 
     - name: Install Font(s)
       run: |
-        ../../scripts/install_fonts.sh
+        ./scripts/install_fonts.sh
 
     - name: Download Input Data
       run: |
