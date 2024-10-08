@@ -52,7 +52,7 @@ The tool is available on PyPI and can be installed using PIP:
 ``flake8`` can be run with a configuration file that specifies a variety of options.
 The configuration file for this repository is included in the root directory with the following configuration options:
 
-.. literalinclude:: ../../../.flake8
+.. literalinclude:: ../../.flake8
 
 To run ``flake8``, navigate to the root directory and execute the following command:
 

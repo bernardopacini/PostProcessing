@@ -2,6 +2,7 @@ Post-Processing
 ===============
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Documentation Status](https://readthedocs.org/projects/postprocessing/badge/?version=latest)](https://postprocessing.readthedocs.io/en/latest/?badge=latest)
 [![Style Checks](https://github.com/bernardopacini/PostProcessing/actions/workflows/formatting.yaml/badge.svg?branch=main)](https://github.com/bernardopacini/PostProcessing/actions/workflows/formatting.yaml)
 [![Install and Test](https://github.com/bernardopacini/PostProcessing/actions/workflows/install_test.yaml/badge.svg?branch=main)](https://github.com/bernardopacini/PostProcessing/actions/workflows/install_test.yaml)
 
