@@ -24,15 +24,7 @@ jobs:
 
     - name: Install Font(s)
       run: |
-        fonts="https://font.download/dl/font/cmu-bright.zip"
-        for font in $fonts; do
-          curl -L -o font.zip $font
-          unzip font.zip -d font
-          mkdir -p ~/.local/share/fonts
-          mv font/*.ttf ~/.local/share/fonts/
-          rm -r font/ font.zip
-        done
-        fc-cache -f -v ~/.local/share/fonts
+        ../../scripts/install_fonts.sh
 
     - name: Download Input Data
       run: |

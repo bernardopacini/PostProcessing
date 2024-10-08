@@ -10,3 +10,6 @@ python:
       
 sphinx:
   configuration: doc/conf.py
+
+commands:
+  - bash ../scripts/install_fonts.sh
