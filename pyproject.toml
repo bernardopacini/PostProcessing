@@ -28,8 +28,11 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
+    "kaleido",
     "matplotlib",
     "numpy<2",
+    "pillow",
+    "plotly",
     "scipy",
 ]
 

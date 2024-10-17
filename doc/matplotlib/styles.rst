@@ -13,13 +13,13 @@ Custom Styles
 The existing styles define colors, fonts, and other parameters that are necessary to customize figure styles.
 The colors in the custom styles are show below and are accessible when using the style:
 
-.. image:: auto_examples/images/sphx_glr_plot_demo_style_colors_001.png
+.. image:: auto_examples/images/sphx_glr_plot_matplotlib_demo_style_colors_001.png
   :alt: Custom matplotlib color styles.
 
 In addition to defining specific colormaps, the styles adjust aspects of the plots.
 The default Matplotlib and custom styles defined in this package are shown below, for an example line and scatter plot.
 
-.. image:: auto_examples/images/sphx_glr_plot_demo_styles_001.png
+.. image:: auto_examples/images/sphx_glr_plot_matplotlib_demo_styles_001.png
   :alt: Some of the available matplotlib styles, including the custom styles.
 
 Adding Styles

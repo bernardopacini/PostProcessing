@@ -20,7 +20,6 @@ sys.modules.update((mod_name, MagicMock()) for mod_name in MOCK_MODULES)
 
 this_dir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath("."))
-sys.path.insert(0, os.path.abspath("./matplotlib"))
 
 # -- Project information -----------------------------------------------------
 
@@ -72,6 +71,7 @@ html_theme = "sphinx_rtd_theme"
 html_static_path = []
 
 sphinx_gallery_conf = {
-    "examples_dirs": "../examples/matplotlib/",  # path to your example scripts
-    "gallery_dirs": "matplotlib/auto_examples",  # path to where to save gallery generated output
+    "examples_dirs": ["../examples/matplotlib", "../examples/plotly"],
+    "gallery_dirs": ["matplotlib/auto_examples", "plotly/auto_examples"],
+    "image_scrapers": ("imag_scraper.png_scraper"),
 }

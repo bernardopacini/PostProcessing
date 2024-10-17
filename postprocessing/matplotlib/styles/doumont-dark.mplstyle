@@ -34,7 +34,7 @@ lines.linewidth: 2.0
 lines.markeredgewidth: 1.0
 
 # Color settings
-axes.prop_cycle: cycler('color', ['e29400ff', '1E90FF', 'E21A1A', '00a650ff', '800000ff', 'ff8f00', '800080ff', '00A6D6', 'ffffffff'])
+axes.prop_cycle: cycler('color', ['e29400', '1E90FF', 'E21A1A', '00a650', '800000', 'ff8f00', '800080', '00A6D6', 'ffffff'])
 
 # Use this parameter, which (hopefully) nobody will ever use, to store text the names of the colors in the color cycle
 keymap.help: Yellow, Blue, Red, Green, Maroon, Orange, Purple, Cyan, White
