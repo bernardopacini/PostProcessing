@@ -32,4 +32,4 @@ jobs:
 
     - name: Run Tests
       run: |
-        (cd tests/matplotlib && python test_images.py)
+        (cd tests/ && testflo -v .)
