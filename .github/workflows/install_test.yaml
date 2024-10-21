@@ -61,6 +61,7 @@ jobs:
     - name: Install Font(s)
       run: |
         ./scripts/install_fonts.sh
+        fc-list : family | sort
 
     - name: Download Input Data
       run: |
