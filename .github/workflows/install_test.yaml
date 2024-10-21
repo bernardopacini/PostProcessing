@@ -34,15 +34,6 @@ jobs:
       run: |
         (cd tests/matplotlib && testflo -v .)
 
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: matplotlib-artifacts
-        path: |
-          # Specify paths to generated files or directories
-          tests/matplotlib/*
-          # Add other paths as necessary
-
   plotly:
     runs-on: ubuntu-22.04
     timeout-minutes: 10
