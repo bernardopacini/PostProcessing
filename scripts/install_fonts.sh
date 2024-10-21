@@ -2,12 +2,13 @@
 
 fonts="https://font.download/dl/font/cmu-bright.zip"
 
-# Function to install fonts on Linux
+# Function to install fonts on Linux (System-wide)
 install_fonts_linux() {
     echo "Installing fonts on Linux..."
-    mkdir -p ~/.local/share/fonts
-    mv font/*.ttf ~/.local/share/fonts/
-    fc-cache -f -v ~/.local/share/fonts
+    sudo mkdir -p /usr/share/fonts/truetype/cmu-bright
+    sudo mv font/*.ttf /usr/share/fonts/truetype/cmu-bright/
+    sudo chmod 644 /usr/share/fonts/truetype/cmu-bright/*.ttf
+    sudo fc-cache -f -v /usr/share/fonts/truetype/cmu-bright
 }
 
 # Function to install fonts on macOS
