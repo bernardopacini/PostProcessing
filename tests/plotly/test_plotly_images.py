@@ -104,17 +104,17 @@ class TestPlotlyExamples(unittest.TestCase):
         baseline_image = Image.open(baseline_image_path)
         output_image = Image.open(output_image_path)
 
-        # # Compare images
-        # try:
-        #     self.assertTrue(
-        #         images_are_similar(baseline_image, output_image, tolerance=0.99),
-        #         "Images differ for {}!".format(script_name),
-        #     )
+        # Compare images
+        try:
+            self.assertTrue(
+                images_are_similar(baseline_image, output_image, tolerance=0.99),
+                "Images differ for {}!".format(script_name),
+            )
 
-        # # Delete test image
-        # finally:
-        #     if os.path.exists(output_image_path):
-        #         os.remove(output_image_path)
+        # Delete test image
+        finally:
+            if os.path.exists(output_image_path):
+                os.remove(output_image_path)
 
 
 if __name__ == "__main__":

@@ -34,15 +34,6 @@ jobs:
       run: |
         (cd tests/matplotlib && testflo -v .)
 
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: matplotlib-artifacts
-        path: |
-          # Specify paths to generated files or directories
-          tests/matplotlib/*
-          # Add other paths as necessary
-
   plotly:
     runs-on: ubuntu-22.04
     timeout-minutes: 10
@@ -61,7 +52,6 @@ jobs:
     - name: Install Font(s)
       run: |
         ./scripts/install_fonts.sh
-        fc-list : family | sort
 
     - name: Download Input Data
       run: |
@@ -70,28 +60,3 @@ jobs:
     - name: Run Tests
       run: |
         (cd tests/plotly && testflo -v .)
-
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: plotly-artifacts
-        path: |
-          tests/plotly/*
-          # Add other paths as necessary
-
-  download-artifacts:
-    runs-on: ubuntu-22.04
-    needs: [matplotlib, plotly]  # Ensures this job runs after the previous jobs
-
-    steps:
-    - name: Download matplotlib artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: matplotlib-artifacts
-        path: ./artifacts/matplotlib
-
-    - name: Download plotly artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: plotly-artifacts
-        path: ./artifacts/plotly
