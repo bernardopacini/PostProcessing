@@ -1,38 +1,47 @@
 #!/bin/bash
 
-fonts="https://font.download/dl/font/cmu-bright.zip"
+fonts=("https://font.download/dl/font/cmu-bright.zip" "https://font.download/dl/font/open-sans.zip")
 
 # Function to install fonts on Linux (System-wide)
 install_fonts_linux() {
     echo "Installing fonts on Linux..."
-    sudo mkdir -p /usr/share/fonts/truetype/cmu-bright
-    sudo mv font/*.ttf /usr/share/fonts/truetype/cmu-bright/
-    sudo chmod 644 /usr/share/fonts/truetype/cmu-bright/*.ttf
-    sudo fc-cache -f -v /usr/share/fonts/truetype/cmu-bright
+    for font in "${fonts[@]}"; do
+        font_name=$(basename "$font" .zip)
+        sudo mkdir -p "/usr/share/fonts/truetype/$font_name"
+        sudo mv "font/$font_name/"*.ttf "/usr/share/fonts/truetype/$font_name/"
+        sudo chmod 644 "/usr/share/fonts/truetype/$font_name/"*.ttf
+        sudo fc-cache -f -v "/usr/share/fonts/truetype/$font_name"
+    done
 }
 
 # Function to install fonts on macOS
 install_fonts_macos() {
     echo "Installing fonts on macOS..."
-    mkdir -p ~/Library/Fonts
-    mv font/*.ttf ~/Library/Fonts/
+    for font in "${fonts[@]}"; do
+        font_name=$(basename "$font" .zip)
+        mkdir -p ~/Library/Fonts
+        mv "font/$font_name/"*.ttf ~/Library/Fonts/
+    done
 }
 
-# Download and unzip the font
+# Download and unzip the fonts
 download_and_extract_fonts() {
-    for font in $fonts; do
-        curl -L -o font.zip $font
-        unzip font.zip -d font
-        rm font.zip
+    for font in "${fonts[@]}"; do
+        font_name=$(basename "$font" .zip)
+        mkdir -p "font/$font_name"
+        curl -L -o "$font_name.zip" "$font"
+        unzip -q "$font_name.zip" -d "font/$font_name"
+        rm "$font_name.zip"
     done
 }
 
 # Detect the operating system
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    mkdir -p font
     download_and_extract_fonts
     install_fonts_linux
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS
+    mkdir -p font
     download_and_extract_fonts
     install_fonts_macos
 else
