@@ -107,7 +107,8 @@ class TestMatplotlibExamples(unittest.TestCase):
         # Compare images
         try:
             self.assertTrue(
-                images_are_similar(baseline_image, output_image, tolerance=0.99), "Images differ for {}!".format(script_name)
+                images_are_similar(baseline_image, output_image, tolerance=0.99),
+                "Images differ for {}!".format(script_name),
             )
 
         # Delete test image
