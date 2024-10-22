@@ -7,11 +7,11 @@ install_fonts_linux() {
     echo "Installing fonts on Linux..."
     for font in "${fonts[@]}"; do
         font_name=$(basename "$font" .zip)
-        sudo mkdir -p "/usr/share/fonts/truetype/$font_name"
-        sudo mv "font/$font_name/"*.ttf "/usr/share/fonts/truetype/$font_name/"
-        sudo chmod 644 "/usr/share/fonts/truetype/$font_name/"*.ttf
-        sudo fc-cache -f -v "/usr/share/fonts/truetype/$font_name"
+        mkdir -p "$HOME/.local/share/fonts/$font_name"
+        mv "font/$font_name/"*.ttf "$HOME/.local/share/fonts/$font_name/"
+        sudo ln -s "$HOME/.local/share/fonts/$font_name" "/usr/share/fonts/truetype/$font_name"
     done
+    fc-cache -f -v
 }
 
 # Function to install fonts on macOS
