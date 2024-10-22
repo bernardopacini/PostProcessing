@@ -4,6 +4,7 @@
 *doc/_templates/*
 *doc/sg_execution_times.rst
 *doc/matplotlib/auto_examples/*
+*doc/plotly/auto_examples/*
 
 # Input Data
 *input_data/*

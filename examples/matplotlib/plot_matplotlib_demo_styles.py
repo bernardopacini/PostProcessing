@@ -6,8 +6,10 @@ This script demonstrates some available styles.
 """
 
 # External imports
+import io
 import matplotlib.pyplot as plt
 import numpy as np
+from PIL import Image
 
 # Internal imports
 import postprocessing.matplotlib as pp_mpl
@@ -33,22 +35,25 @@ def main():
     y_rand = gaussian(x_rand, 0, 1) + np.random.normal(0, 0.02, len(x_rand))
     y_rand[y_rand < 0] += 0.05
 
-    # Initialize figure
-    fig = plt.figure(figsize=(10, 5 * len(styles) + 1))
-    subfigs = fig.subfigures(ncols=1, nrows=len(styles) + 1)
-
     # Create a version of the plot with each niceplots style and the default matplotlib style
-    for i, formatting in enumerate(["default"] + styles):
+    figure_bytes = []
+    for formatting in ["default"] + styles:
         with plt.style.context(pp_mpl.get_style(formatting)):
+            # Standardize resolution
+            plt.rcParams["figure.dpi"] = 600
+
+            # Initialize figure
+            fig = plt.figure(figsize=(10, 4))
+            ax = plt.gca()
+
             # Select axis
-            ax = subfigs[i].subplots(1, 1)
             font = {"fontname": plt.rcParams["font.sans-serif"][0]}
 
             # Get colors if using custom style
             if formatting != "default":
                 colors = pp_mpl.get_colors(rcParams=True)
                 ax.label_outer()
-                subfigs[i].set_facecolor(colors["Background"])
+                ax.set_facecolor(colors["Background"])
 
             # Setup axes
             ax.set_yticks([0, 0.4])
@@ -57,7 +62,7 @@ def main():
 
             # Write LaTeX in axis labels
             ax.set_xlabel("Some variable, $x$", **font)
-            ax.set_ylabel("$\\mathbb{E}(x,\\mu=0, \\sigma=1)$", rotation="horizontal", ha="right", **font)
+            ax.set_ylabel("$\\mathbb{E}(x,\\mu=0, \\sigma=1)$", **font)
 
             # Plot data
             (line,) = ax.plot(x_line, y_line, clip_on=False)
@@ -88,9 +93,29 @@ def main():
                 pp_mpl.adjust_spines(ax)
             else:
                 plt.tight_layout()
-            plt.subplots_adjust(left=0.2, right=0.95, bottom=0.2, top=0.85)
 
-    pp_mpl.save_figs(fig, "demo_styles", ["png"])
+            # Store figure
+            img_bytes = io.BytesIO()
+            fig.savefig(img_bytes, format="png")
+            img_bytes.seek(0)
+            figure_bytes.append(img_bytes.getvalue())
+
+    # Convert byte data to PIL images
+    images = [Image.open(io.BytesIO(b)) for b in figure_bytes]
+
+    # Combine images vertically
+    total_height = sum(img.height for img in images)
+    max_width = max(img.width for img in images)
+    combined_image = Image.new("RGBA", (max_width, total_height))
+
+    # Paste each image into the combined image
+    y_offset = 0
+    for img in images:
+        combined_image.paste(img, (0, y_offset))
+        y_offset += img.height
+
+    # Save the combined image
+    combined_image.save("matplotlib_demo_styles.png")
 
 
 if __name__ == "__main__":

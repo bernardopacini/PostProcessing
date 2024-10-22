@@ -19,7 +19,9 @@ These fonts are optional; if a font is not found, Matplotlib will default to the
 To install fonts, install the desired font on your system and delete Matplotlib's font cache(s) located in ``~/.cache/matplotlib``.
 The custom fonts used in this package are:
 
-.. generate_matplotlib_font_list::
+.. generate_font_list::
+    :path: /../postprocessing/matplotlib/styles
+    :extension: .mplstyle
 
 Utilities
 ---------
@@ -28,4 +30,4 @@ Matplotlib is a package specifically developed for data visualization.
 In this package, I provide some styles, utilities, and examples that are listed below, and detailed in the following sections.
 
 * :ref:`matplotlib_styles`
-* :ref:`auto_examples`
+* :ref:`matplotlib_auto_examples`
