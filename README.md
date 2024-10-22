@@ -20,6 +20,7 @@ To install the package, the package and all dependencies, just the documentation
 pip3 install .        # The package, with only required dependencies
 pip3 install .[all]   # The package and all dependencies
 pip3 install .[doc]   # The package and the optional documentation dependencies
+pip3 install .[test]  # The package and the optional testing dependencies
 pip3 install .[style] # The package and the optional style check dependencies
 ```
 
@@ -34,7 +35,7 @@ To build the documentation and open the files, use the following commands:
 
 ```
 make html
-open build/html/index.html
+open _build/html/index.html
 ```
 
 The documentation will open in a web browser.

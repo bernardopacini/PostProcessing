@@ -38,7 +38,7 @@ dependencies = [
 
 [project.optional-dependencies]
 all = [
-    "postprocessing[doc,style]",
+    "postprocessing[doc,test,style]",
 ]
 doc = [
     "sphinx",
