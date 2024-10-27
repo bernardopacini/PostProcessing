@@ -1,0 +1,95 @@
+{
+    "layout": {
+        "paper_bgcolor": "#FFFFFF",
+        "plot_bgcolor": "#FFFFFF",
+        "legend": {
+            "x": 1.02,
+            "y": 1,
+            "traceorder": "normal",
+            "font": {
+                "size": 12,
+                "color": "#5a5758"
+            },
+            "bgcolor": "rgba(0,0,0,0)",
+            "bordercolor": "rgba(0,0,0,0)",
+            "itemwidth": 30
+        },
+        "xaxis": {
+            "showline": true,
+            "linecolor": "#5a5758",
+            "mirror": false,
+            "showgrid": false,
+            "ticks": "outside",
+            "tickcolor": "#5a5758",
+            "tickwidth": 2,
+            "ticklen": 6,
+            "tickfont": {
+                "size": 12,
+                "color": "#5a5758",
+                "family": "CMU Bright"
+            },
+            "automargin": true,
+            "zeroline": false
+        },
+        "yaxis": {
+            "showline": true,
+            "linecolor": "#5a5758",
+            "mirror": false,
+            "showgrid": false,
+            "ticks": "outside",
+            "tickcolor": "#5a5758",
+            "tickwidth": 2,
+            "ticklen": 6,
+            "tickfont": {
+                "size": 12,
+                "color": "#5a5758",
+                "family": "CMU Bright"
+            },
+            "automargin": true,
+            "zeroline": false
+        },
+        "font": {
+            "family": "CMU Bright",
+            "size": 14,
+            "color": "#5a5758"
+        },
+        "margin": {
+            "l": 50,
+            "r": 50,
+            "b": 50,
+            "t": 50,
+            "pad": 8
+        },
+        "colorway": [
+            "#e29400",
+            "#1E90FF",
+            "#E21A1A",
+            "#00a650",
+            "#800000",
+            "#ff8f00",
+            "#800080",
+            "#00A6D6",
+            "#000000"
+        ],
+        "meta": {
+            "config": {
+                "staticPlot": false,
+                "editable": true,
+                "displayModeBar": true,
+                "displaylogo": false,
+                "showTips": true
+            },
+            "color_names": [
+                "Yellow",
+                "Blue",
+                "Red",
+                "Green",
+                "Maroon",
+                "Orange",
+                "Purple",
+                "Cyan",
+                "Black"
+            ]
+        }
+    }
+}

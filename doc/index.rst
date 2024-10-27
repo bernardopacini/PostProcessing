@@ -16,6 +16,14 @@ The methods are organized in following structure:
    matplotlib/auto_examples/index
 
 .. toctree::
+   :caption: Plotly
+   :maxdepth: 1
+
+   plotly/index
+   plotly/styles
+   plotly/auto_examples/index
+
+.. toctree::
    :caption: ParaView
    :maxdepth: 1
 

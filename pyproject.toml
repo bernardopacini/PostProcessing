@@ -28,14 +28,17 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
+    "kaleido",
     "matplotlib",
     "numpy<2",
+    "pillow",
+    "plotly",
     "scipy",
 ]
 
 [project.optional-dependencies]
 all = [
-    "postprocessing[doc,style]",
+    "postprocessing[doc,test,style]",
 ]
 doc = [
     "sphinx",
