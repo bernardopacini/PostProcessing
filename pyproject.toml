@@ -30,7 +30,7 @@ classifiers = [
 dependencies = [
     "kaleido",
     "matplotlib",
-    "numpy<2",
+    "numpy<3",
     "pillow",
     "plotly",
     "scipy",
@@ -58,8 +58,8 @@ test = [
     "pillow",
 ]
 style = [
-    "black==24.4.2",
-    "flake8==7.1.0",
+    "black==24.10.0",
+    "flake8==7.1.1",
 ]
 
 [project.scripts]
