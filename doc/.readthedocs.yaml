@@ -6,12 +6,20 @@ build:
     python: "3.12"
   jobs:
     pre_install:
+      - |
+        if ! command -v sudo &>/dev/null; then
+          echo "sudo is not installed. Installing sudo..."
+          apt-get update
+          apt-get install -y sudo
+        else
+          echo "sudo is already installed."
+        fi
       - bash ./scripts/install_fonts.sh
 
 python:
   install:
     - method: pip
       path: .[doc]
-      
+
 sphinx:
   configuration: doc/conf.py
