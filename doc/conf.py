@@ -36,7 +36,7 @@ author = "Bernardo Pacini"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx-prompt",
+    "sphinx_prompt",
     "sphinxcontrib.bibtex",
     "sphinxarg.ext",
     "autoapi.extension",
