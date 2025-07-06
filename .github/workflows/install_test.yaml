@@ -51,7 +51,7 @@ jobs:
 
     - name: Setup Kaleido
       run: |
-        plotly_get_chrome
+        plotly_get_chrome -y
         echo "KAL_CHROME_PATH=$HOME/.plotly/kaleido/chrome/chrome" >> $GITHUB_ENV
 
     - name: Install Font(s)
