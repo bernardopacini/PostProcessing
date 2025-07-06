@@ -7,10 +7,6 @@ build:
   jobs:
     pre_install:
       - bash ./scripts/install_fonts.sh
-    post_install:
-      - plotly_get_chrome -y
-      - echo "export KAL_CHROME_PATH=$HOME/.plotly/kaleido/chrome/chrome" >> $HOME/.bashrc
-      - export KAL_CHROME_PATH=$HOME/.plotly/kaleido/chrome/chrome
 
 python:
   install:
