@@ -28,7 +28,7 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
-    "kaleido",
+    "kaleido==0.2.1",
     "matplotlib",
     "numpy<3",
     "pillow",
