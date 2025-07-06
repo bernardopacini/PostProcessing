@@ -15,3 +15,7 @@ python:
       
 sphinx:
   configuration: doc/conf.py
+
+build:
+  commands:
+    - python doc/setup_kaleido.py
