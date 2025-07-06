@@ -7,8 +7,8 @@ build:
   jobs:
     pre_install:
       - bash ./scripts/install_fonts.sh
-  commands:
-    - python doc/setup_kaleido.py
+    post_install:
+      - python doc/setup_kaleido.py
 
 python:
   install:
