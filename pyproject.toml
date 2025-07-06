@@ -28,7 +28,7 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
-    "kaleido",
+    "kaleido==0.2.1",
     "matplotlib",
     "numpy<3",
     "pillow",
@@ -59,7 +59,7 @@ test = [
 ]
 style = [
     "black==25.1.0",
-    "flake8==7.2.0",
+    "flake8==7.3.0",
 ]
 
 [project.scripts]
