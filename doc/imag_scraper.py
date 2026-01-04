@@ -1,7 +1,10 @@
 from glob import glob
-import shutil
+import kaleido
 import os
+import shutil
 from sphinx_gallery.scrapers import figure_rst
+
+kaleido.get_chrome_sync()
 
 
 def png_scraper(block, block_vars, gallery_conf):
