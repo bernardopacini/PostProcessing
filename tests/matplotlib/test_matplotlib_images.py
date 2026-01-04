@@ -33,7 +33,7 @@ def run_example_script(script_path, output_dir):
     script_name = os.path.splitext(os.path.basename(script_path))[0]
     output_image = os.path.join(output_dir, "{}.png".format(script_name[script_name.find("_") + 1 :]))
 
-    subprocess.run("{} {} {}".format(sys.executable, script_path, output_image), shell=True, check=True)
+    subprocess.run("{} {} {}".format(sys.executable, script_path), shell=True, check=True)
 
     return output_image
 
