@@ -2,8 +2,8 @@ from glob import glob
 import shutil
 import os
 from sphinx_gallery.scrapers import figure_rst
-from kaleido.scopes._utils import kaleido_get_chrome
-kaleido_get_chrome()
+import kaleido
+kaleido.get_chrome_sync()
 
 
 def png_scraper(block, block_vars, gallery_conf):
