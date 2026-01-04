@@ -11,8 +11,8 @@ build:
       - bash ./scripts/install_fonts.sh
 
       # Install OS dependencies needed for Chromium/Kaleido
-      - sudo apt-get update -y
-      - sudo apt-get install -y \
+      - apt-get update -y
+      - apt-get install -y \
         libnss3 \
         libatk-bridge2.0-0 \
         libcups2 \
