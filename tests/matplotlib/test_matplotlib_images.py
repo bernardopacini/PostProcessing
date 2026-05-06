@@ -7,7 +7,6 @@ import numpy as np
 from PIL import Image
 from skimage.metrics import structural_similarity as ssim
 
-
 # Directory paths
 example_dir = os.path.join(os.path.dirname(__file__), "../../examples/matplotlib")
 baseline_dir = os.path.join(os.path.dirname(__file__), "../../input_data/DATA-PostProcessing/matplotlib")
